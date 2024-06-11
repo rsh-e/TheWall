@@ -7,29 +7,51 @@
             <div class="card">
                 <div class="card-header">Register</div>
                 <div class="card-body">
+                    {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for message in messages %}
+                        {{ message }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <form method="post">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="id_username">Username:</label>
                             <small class="text-muted" style="color: #777;">3-12 letters only</small>
                             {{ form.username }}
+                            {% if form.username.errors %}
+                            <small class="text-danger">{{ form.username.errors }}</small>
+                            {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="id_password1">Password:</label>
                             <small class="text-muted" style="color: #777;">Use 8 letters or more</small>
-                            <div class="input-group">
-                                {{ form.password1 }}
-                                <div class="input-group-append">
-                                    <span class="input-group-text"
-                                        onclick="togglePassword('id_password1', 'toggle-password-icon1')">
-                                        <i id="toggle-password-icon1" class="fa fa-eye"></i>
-                                    </span>
-                                </div>
-                            </div>
+                            {{ form.password1 }}
+                            {% if form.password1.errors %}
+                            <small class="text-danger">{{ form.password1.errors }}</small>
+                            {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="id_password2">Confirm Password:</label>
-                            {{ form.password2 }} <!-- Remove the password toggle for this field -->
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                            <small class="text-danger">{{ form.password2.errors }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of birth:</label>
+                            {{ form.dob }}
+                            {% if form.dob.errors %}
+                            <small class="text-danger">{{ form.dob.errors }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="invitation_number">Inivitation Number</label>
+                            {{ form.invitation_number }}
+                            {% if form.invitation_number.errors %}
+                            <small class="text-danger">{{ form.invitation_number.errors }}</small>
+                            {% endif %}
                         </div>
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </form>
@@ -39,18 +61,3 @@
     </div>
 </div>
 {% endblock %}
-
-<script>
-    function togglePassword1() {
-        var password = document.getElementById('id_password1');
-        var toggleIcon = document.getElementById('toggle-password-icon1');
-
-        if (password.type === 'password') {
-            password.type = 'text';
-            toggleIcon.className = 'fa fa-eye-slash';
-        } else {
-            password.type = 'password';
-            toggleIcon.className = 'fa fa-eye';
-        }
-    }
-</script>
