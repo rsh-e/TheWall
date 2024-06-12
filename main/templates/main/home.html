@@ -1,5 +1,12 @@
 {% extends 'main/base.html' %}
 
 {%block content%}
-<h1>This is the main page This is response A Commit</h1>
+<h1>This is the main page</h1>
+<div>
+    {% if user.is_authenticated %}
+    <h2>Welcome back, {{user.username}}</h2>
+    {% else %}
+    <h2>It looks like you're not signed in, sign in now</h2>
+    {%endif%}
+</div>
 {%endblock%}
